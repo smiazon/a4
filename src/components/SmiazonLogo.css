@@ -1,0 +1,226 @@
+.smiazon-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 22px;
+  height: 22px;
+  box-sizing: border-box;
+  -webkit-app-region: no-drag; /* Prevent dragging when clicking logo */
+}
+
+.logo-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #ff00ff 0%,
+    #00ffff 40%,
+    #8b00ff 80%,
+    #ff00ff 100%
+  );
+  background-size: 300% 300%;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: move-water 20s ease-in-out infinite;
+}
+
+.gradient-layer {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  opacity: 0;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.layer-1 {
+  background: radial-gradient(
+    circle at 40% 40%,
+    #00ffff 0%,
+    #ff0080 25%,
+    #ffaa00 50%,
+    #ff00ff 75%,
+    #00ffff 100%
+  );
+  background-size: 200% 200%;
+  animation: fade-layer-1 20s ease-in-out infinite, flow-water-1 25s ease-in-out infinite;
+}
+
+.layer-2 {
+  background: radial-gradient(
+    circle at 60% 60%,
+    #ff0080 0%,
+    #8b00ff 25%,
+    #00ffff 50%,
+    #ff0080 75%,
+    #8b00ff 100%
+  );
+  background-size: 200% 200%;
+  animation: fade-layer-2 20s ease-in-out infinite, flow-water-2 28s ease-in-out infinite;
+}
+
+.layer-3 {
+  background: radial-gradient(
+    circle at 50% 30%,
+    #8b00ff 0%,
+    #ff00ff 25%,
+    #00ff80 50%,
+    #8b00ff 75%,
+    #ff00ff 100%
+  );
+  background-size: 200% 200%;
+  animation: fade-layer-3 20s ease-in-out infinite, flow-water-3 30s ease-in-out infinite;
+}
+
+.layer-4 {
+  background: radial-gradient(
+    circle at 70% 50%,
+    #00ff80 0%,
+    #00ffff 25%,
+    #ff00ff 50%,
+    #ffaa00 75%,
+    #00ff80 100%
+  );
+  background-size: 200% 200%;
+  animation: fade-layer-4 20s ease-in-out infinite, flow-water-4 32s ease-in-out infinite;
+}
+
+@keyframes move-water {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes flow-water-1 {
+  0% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  33% {
+    transform: translate(15%, -10%) scale(1.1);
+  }
+  66% {
+    transform: translate(-10%, 15%) scale(0.9);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes flow-water-2 {
+  0% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  33% {
+    transform: translate(-15%, 10%) scale(0.9);
+  }
+  66% {
+    transform: translate(10%, -15%) scale(1.1);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes flow-water-3 {
+  0% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  25% {
+    transform: translate(10%, 15%) scale(1.05);
+  }
+  50% {
+    transform: translate(-15%, -10%) scale(0.95);
+  }
+  75% {
+    transform: translate(5%, 5%) scale(1.02);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes flow-water-4 {
+  0% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  25% {
+    transform: translate(-10%, -15%) scale(0.95);
+  }
+  50% {
+    transform: translate(15%, 10%) scale(1.05);
+  }
+  75% {
+    transform: translate(-5%, -5%) scale(1.02);
+  }
+  100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes fade-layer-1 {
+  0%, 20% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  25%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-layer-2 {
+  0%, 45% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-layer-3 {
+  0%, 70% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  75%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-layer-4 {
+  0%, 95% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+

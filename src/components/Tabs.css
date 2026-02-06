@@ -1,0 +1,177 @@
+.tabs-container {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 0 12px;
+  padding-left: 78px; /* Space for macOS window controls (traffic lights) */
+  background: var(--paper-cream);
+  border-bottom: 1px solid var(--border-light);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  height: 36px;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  -webkit-app-region: drag; /* Make tab bar draggable */
+}
+
+.tabs-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23g)' fill='%23999' fill-opacity='0.12'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 100px 100px;
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tabs-container.fullscreen {
+  padding-left: 0 !important; /* Tabs start from the very left edge in fullscreen */
+  padding-right: 0;
+}
+
+/* On non-macOS, remove the extra padding */
+@supports not (-webkit-appearance: none) {
+  .tabs-container {
+    padding-left: 12px;
+  }
+}
+
+.tabs-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs-list,
+.tabs-container .new-tab-button {
+  position: relative;
+  z-index: 1;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 0;
+  flex: 0 0 auto;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--border-light);
+  border-top: none;
+  border-left: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  min-width: 120px;
+  max-width: 240px;
+  position: relative;
+  font-family: 'Crimson Text', serif;
+  font-size: 13px;
+  color: var(--ink-gray);
+  height: 36px;
+  box-sizing: border-box;
+  -webkit-app-region: no-drag; /* Prevent dragging when interacting with tabs */
+}
+
+.tab:first-child {
+  border-left: 1px solid var(--border-light);
+}
+
+.tab:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.tab.active {
+  background: white;
+  color: var(--ink-black);
+  border-bottom-color: white;
+  z-index: 1;
+}
+
+.tab.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.tab.drag-over {
+  border-left: 2px solid var(--accent-blue);
+  border-left-width: 2px;
+}
+
+.tab-favicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-right: 6px;
+  object-fit: contain;
+}
+
+.tab-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.4;
+}
+
+.tab-close {
+  background: transparent;
+  border: none;
+  color: var(--ink-gray);
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  -webkit-app-region: no-drag; /* Prevent dragging when clicking close button */
+}
+
+.tab-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--ink-black);
+  opacity: 1;
+}
+
+.new-tab-button {
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: var(--ink-gray);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+  margin-left: 0;
+  align-self: center;
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  order: 1;
+  -webkit-app-region: no-drag; /* Prevent dragging when clicking new tab button */
+}
+
+.new-tab-button:hover {
+  color: var(--ink-black);
+  opacity: 1;
+}
+

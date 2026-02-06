@@ -1,0 +1,53 @@
+.address-bar {
+  flex: 1;
+  max-width: 900px;
+}
+
+.address-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 0;
+  padding: 8px 12px;
+  transition: border-color 0.15s ease;
+  height: 28px;
+  box-sizing: border-box;
+  -webkit-app-region: no-drag; /* Prevent dragging when interacting with address bar */
+}
+
+.address-bar-container:focus-within {
+  border-color: var(--accent-blue);
+  outline: 1px solid var(--accent-blue);
+  outline-offset: -1px;
+}
+
+.address-bar-icon {
+  color: var(--ink-gray);
+  flex-shrink: 0;
+  opacity: 0.7;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.address-bar-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ink-black);
+  font-family: 'Crimson Text', serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.address-bar-input::placeholder {
+  color: var(--ink-gray);
+  opacity: 0.5;
+}
