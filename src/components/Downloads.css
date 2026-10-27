@@ -1,0 +1,63 @@
+/* File-type badge, like a little paper tag */
+.download-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 4px 9px 4px 4px;
+  background: var(--paper);
+  border: 1px solid var(--hairline-strong);
+  color: var(--ink-2);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.download-row.has-icon + .download-row.has-icon::before {
+  left: 58px;
+}
+
+.download-row.is-failed .download-name {
+  text-decoration: line-through;
+  color: var(--ink-3);
+}
+
+.download-progress {
+  display: block;
+  height: 3px;
+  margin: 4px 0 3px;
+  border-radius: 2px;
+  background: var(--press);
+  overflow: hidden;
+}
+
+.download-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--rainbow-stops));
+  transition: width 0.25s var(--ease);
+}
+
+.download-row .btn-ghost {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 13.5px;
+}
+
+.downloads-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* Toolbar button */
+.downloads-toolbar-button.is-active {
+  color: var(--accent);
+}
+
+.downloads-toolbar-ring {
+  transition: stroke-dasharray 0.3s var(--ease);
+}

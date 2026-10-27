@@ -1,18 +1,26 @@
 {
   "name": "smiazon-browser",
   "version": "1.0.0",
-  "description": "Smiazon - A clean, elegant web browser with classic book typography",
+  "description": "A4: a calm, paper-like web browser with an art home page, ad blocking and a built-in AI assistant",
+  "author": "smiazon",
+  "homepage": "https://github.com/smiazon/a4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smiazon/a4.git"
+  },
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "electron": "electron .",
-    "electron:dev": "concurrently \"npm run dev\" \"sleep 3 && electron .\"",
+    "electron": "node scripts/start-electron.js",
+    "electron:dev": "concurrently \"npm run dev\" \"sleep 3 && node scripts/start-electron.js\"",
     "electron:build": "npm run build && electron-builder",
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0",
+    "@ghostery/adblocker-electron": "^2.20.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -27,25 +35,66 @@
     "wait-on": "^7.2.0"
   },
   "build": {
-    "appId": "com.smiazon.browser",
-    "productName": "Smiazon Browser",
+    "appId": "com.smiazon.a4",
+    "productName": "A4",
+    "extraMetadata": {
+      "productName": "A4"
+    },
     "directories": {
-      "output": "dist-electron"
+      "output": "dist-electron",
+      "buildResources": "build"
     },
     "files": [
       "dist/**/*",
       "electron/**/*",
       "package.json"
     ],
+    "afterPack": "scripts/after-pack.js",
     "mac": {
-      "category": "public.app-category.utilities",
-      "target": "dmg"
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "A4-${version}-mac-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "A4"
     },
     "win": {
-      "target": "nsis"
+      "icon": "build/icon.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "A4-${version}-windows-setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     },
     "linux": {
-      "target": "AppImage"
+      "icon": "build/icon.png",
+      "category": "Network",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "A4-${version}-linux-${arch}.${ext}"
     }
   }
 }

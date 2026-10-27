@@ -1,0 +1,406 @@
+.art-home {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: #1A1815;
+  color: #fff;
+  font-family: var(--font-serif);
+  user-select: none;
+}
+
+.art-home.is-empty {
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+/* ---- Paintings ---- */
+.art-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.art-home.is-empty .art-stage {
+  display: none;
+}
+
+.art-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.art-slide.is-current {
+  animation: art-fade-in 1.8s var(--ease) both;
+}
+
+@keyframes art-fade-in {
+  from { opacity: 0; }
+}
+
+.art-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: art-drift 26s ease-out both;
+}
+
+/* Slow Ken Burns settle */
+@keyframes art-drift {
+  from { transform: scale(1.07); }
+  to { transform: scale(1); }
+}
+
+/* Blurred copy fills the edges when the whole painting is shown (focus) */
+.art-backdrop {
+  position: absolute;
+  inset: -60px;
+  width: calc(100% + 120px);
+  height: calc(100% + 120px);
+  object-fit: cover;
+  filter: blur(48px) saturate(1.15) brightness(0.55);
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+.art-home.is-focus .art-backdrop {
+  opacity: 1;
+}
+
+.art-home.is-focus .art-image {
+  object-fit: contain;
+  padding: 48px 72px 112px;
+  animation: none;
+  filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.55));
+}
+
+/* Printed-on-paper grain over the canvas */
+.art-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.art-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 46% 34% at 50% 44%, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 32%, rgba(0, 0, 0, 0) 64%, rgba(0, 0, 0, 0.42) 100%);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.art-home.is-focus .art-scrim {
+  opacity: 0.4;
+}
+
+/* ---- Clock, search, shortcuts ---- */
+.art-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 0 24px 6vh;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  pointer-events: none;
+}
+
+.art-center > * {
+  pointer-events: auto;
+}
+
+.art-home.is-focus .art-center {
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+}
+
+.art-home.is-focus .art-center > * {
+  pointer-events: none;
+}
+
+.art-clock {
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 32px rgba(0, 0, 0, 0.45);
+}
+
+.art-home.is-empty .art-clock {
+}
+
+.art-time {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(64px, 9vw, 116px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: lining-nums;
+}
+
+.art-date {
+  margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.art-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(560px, 86vw);
+  height: 54px;
+  padding: 0 20px;
+  border-radius: 999px;
+  color: var(--ink-2);
+  background-color: color-mix(in srgb, var(--sheet) 88%, transparent);
+}
+
+.art-search-halo {
+  border-radius: 999px;
+}
+
+.art-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+.art-search input::placeholder {
+  color: var(--ink-3);
+}
+
+.art-search-hint {
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+
+.art-search:focus-within .art-search-hint {
+  opacity: 1;
+}
+
+.art-shortcuts {
+  display: flex;
+  gap: 10px;
+}
+
+.art-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px 0 10px;
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s var(--ease);
+}
+
+.art-shortcut:hover {
+  transform: translateY(-1px);
+}
+
+.art-shortcut:active {
+  transform: scale(0.97);
+}
+
+.art-shortcut img {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* ---- Museum wall label (a small paper card) ---- */
+.art-label {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: min(420px, 44vw);
+  padding: 10px 14px 11px;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--sheet);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s var(--ease), opacity 0.5s var(--ease), box-shadow 0.2s var(--ease);
+  animation: art-label-in 0.9s var(--ease) both;
+}
+
+@keyframes art-label-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
+
+.art-label:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.art-label-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.art-label-meta {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  letter-spacing: 0.02em;
+}
+
+/* ---- One quiet dock: previous · play · next | focus ---- */
+.art-dock {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 40px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--sheet) 82%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+.art-dock button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), transform 0.12s var(--ease);
+}
+
+.art-dock button:hover {
+  background-color: var(--hover);
+}
+
+.art-dock button:active {
+  transform: scale(0.9);
+}
+
+.art-dock-sep {
+  width: 1px;
+  height: 18px;
+  margin: 0 4px;
+  background-color: var(--hairline-strong);
+}
+
+.art-dock-focus.is-on {
+  color: var(--accent);
+}
+
+/* The dock steps back while the mouse rests, and returns on any movement */
+.art-home.is-idle .art-dock:not(:hover) {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Resting mouse in focus mode: just the painting */
+.art-home.is-focus.is-idle {
+  cursor: none;
+}
+
+.art-home.is-focus.is-idle .art-label {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Focus caption: thin, spaced, like a gallery wall ---- */
+.art-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: min(720px, 86vw);
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 6px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+
+.art-home.is-focus .art-caption {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  transition-delay: 0.35s;
+}
+
+.art-caption-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.art-caption-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-indent: 0.32em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.art-caption-rule {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* In focus mode the caption replaces the paper label and the account */
+.art-home.is-focus .art-label,
+.art-home.is-focus .mail-home {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.art-home .mail-home {
+  transition: opacity 0.5s var(--ease);
+}

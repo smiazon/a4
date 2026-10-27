@@ -1,204 +1,164 @@
-.favorites-container {
-  flex: 1;
+.classic-home {
+  position: absolute;
+  inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--paper-beige);
-  padding: 20px;
+  background-color: var(--paper);
   overflow-y: auto;
-  position: relative;
 }
 
-.favorites-a4-logo-wrap {
-  position: absolute;
-  top: calc(50% - 235px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 44px;
-  height: 44px;
-  user-select: none;
+.classic-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(560px, 88vw);
+  margin-top: -6vh;
 }
 
-.favorites-a4-circle {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 44px;
-  height: 44px;
+/* Embossed A4 mark */
+.classic-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 28px;
   border-radius: 50%;
-  background: #000;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  box-shadow: var(--shadow-md);
 }
 
-.favorites-a4-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Crimson Text', serif;
-  font-size: 14px;
+.classic-quote {
+  font-family: 'Cinzel', var(--font-display);
+  font-size: 21px;
   font-weight: 500;
-  color: var(--paper-beige);
-  letter-spacing: 0.2em;
-  text-shadow:
-    1px 1px 1px rgba(0, 0, 0, 0.08),
-    -1px -1px 1px rgba(255, 255, 255, 0.6),
-    0 0 0 rgba(0, 0, 0, 0.05);
-  z-index: 1;
-}
-
-.favorites-content {
-  max-width: 320px;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.favorites-title {
-  font-family: 'Cinzel', 'Albertus', 'Times New Roman', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1d1d1f;
-  margin-bottom: 0;
   letter-spacing: 0.08em;
-  position: absolute;
-  top: calc(50% - 150px);
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0.9;
+  line-height: 1.45;
   text-align: center;
-  max-width: 450px;
-  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 34px;
 }
 
-.favorites-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
+.classic-search-halo {
   width: 100%;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: calc(50% - 40px);
-  left: 50%;
-  transform: translate(-50%, -50%);
+  border-radius: 999px;
 }
 
-.favorites-search-form {
-  position: absolute;
-  top: calc(50% + 40px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-}
-
-.favorites-search-wrapper {
-  position: relative;
-  width: 100%;
+.classic-search {
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.favorites-search-placeholder {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Crimson Text', serif;
-  font-size: 16px;
-  color: #86868b;
-  opacity: 0.7;
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 3;
-}
-
-.favorites-search-input {
+  gap: 12px;
   width: 100%;
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 0;
-  padding: 12px 16px;
-  font-family: 'Crimson Text', serif;
-  font-size: 18px;
-  color: #1d1d1f;
-  text-align: center;
-  outline: none;
-  transition: all 0.2s ease;
-  letter-spacing: 0.01em;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink-3);
 }
 
-.favorites-search-input:focus {
-  border-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+.classic-search:focus-within {
+  border-color: transparent;
 }
 
-.favorite-card {
-  background: transparent;
+.classic-search input {
+  flex: 1;
+  min-width: 0;
   border: none;
-  border-radius: 0;
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  background-color: transparent;
+  color: var(--ink);
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+.classic-search input::placeholder {
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.classic-grid {
+  display: flex;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.classic-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  font-family: 'Crimson Text', serif;
-  text-align: center;
-  box-sizing: border-box;
-  min-width: 80px;
+  gap: 8px;
+  width: 84px;
+  padding: 10px 0 8px;
+  border: none;
+  border-radius: var(--radius);
+  background-color: transparent;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), transform 0.12s var(--ease);
 }
 
-.favorite-card:hover {
-  opacity: 0.75;
-  transform: translateY(-2px);
+.classic-tile:hover {
+  background-color: var(--hover);
+  color: var(--ink);
 }
 
-.favorite-card:active {
-  transform: translateY(0);
-  opacity: 0.9;
+.classic-tile:active {
+  transform: scale(0.96);
 }
 
-.favorite-icon-wrapper {
-  width: 44px;
-  height: 44px;
+/* Rounded icon tile */
+.classic-tile-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0;
-  flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-md);
 }
 
-.favorite-card:hover .favorite-icon-wrapper {
-  transform: scale(1.08);
+.classic-tile-icon img {
+  width: 24px;
+  height: 24px;
 }
 
-.favorite-icon {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
+.classic-focus {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  background-color: var(--sheet);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.12s var(--ease), border-color 0.15s var(--ease);
 }
 
-.favorite-name {
-  font-size: 12px;
-  font-weight: 400;
-  color: #1d1d1f;
-  letter-spacing: 0.005em;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
+.classic-focus:hover {
+  border-color: var(--ink-3);
 }
 
-.favorite-card:hover .favorite-name {
-  opacity: 1;
+.classic-focus:active {
+  transform: scale(0.92);
 }
 
+.classic-focus.is-on {
+  color: var(--accent);
+}

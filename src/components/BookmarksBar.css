@@ -1,0 +1,335 @@
+/* A slim row under the toolbar: bookmarks and folders as quiet chips */
+.bookmarks-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 34px;
+  padding: 0 10px 4px 12px;
+  background-color: var(--paper);
+  -webkit-app-region: no-drag;
+}
+
+.bookmarks-bar.is-drop-end .bm-row::after {
+  content: '';
+  width: 2px;
+  height: 18px;
+  margin-left: 2px;
+  border-radius: 1px;
+  background-color: var(--accent);
+}
+
+.bm-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  overflow: hidden;
+}
+
+.bm-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 190px;
+  height: 28px;
+  padding: 0 10px 0 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-serif);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.bm-chip:hover,
+.bm-chip.is-open {
+  background-color: var(--hover);
+  color: var(--ink);
+}
+
+.bm-chip:active {
+  background-color: var(--press);
+}
+
+.bm-chip svg,
+.bm-favicon {
+  flex-shrink: 0;
+  color: var(--ink-3);
+}
+
+.bm-favicon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.bm-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bm-count {
+  min-width: 16px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background-color: var(--press);
+  color: var(--ink-3);
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Drop feedback */
+.bm-chip.is-drop-before::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 5px;
+  bottom: 5px;
+  width: 2px;
+  border-radius: 1px;
+  background-color: var(--accent);
+}
+
+.bm-chip.is-drop-into {
+  background-color: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.bm-rename {
+  width: 110px;
+  height: 22px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 6px;
+  outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background-color: var(--sheet);
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.bm-more,
+.bm-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--ink-3);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.bm-more:hover,
+.bm-add:hover {
+  background-color: var(--hover);
+  color: var(--ink);
+}
+
+/* Folder dropdown */
+.bm-popover {
+  position: fixed;
+  z-index: 1100;
+  width: 280px;
+  max-height: min(420px, calc(100vh - 140px));
+  overflow-y: auto;
+  padding: 6px;
+  border-radius: 14px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+  animation: bm-pop-in 0.16s var(--ease);
+}
+
+@keyframes bm-pop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+
+.bm-pop-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 8px;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bm-pop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bm-pop-item:hover {
+  background-color: var(--hover);
+}
+
+.bm-pop-item svg {
+  flex-shrink: 0;
+  color: var(--ink-3);
+}
+
+.bm-pop-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bm-pop-host {
+  flex-shrink: 0;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.bm-pop-empty {
+  padding: 10px 10px 12px;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+.bm-pop-all {
+  width: 100%;
+  margin-top: 4px;
+  padding: 9px 10px 5px;
+  border: none;
+  border-top: 1px solid var(--hairline);
+  background: none;
+  color: var(--accent);
+  font-size: 13.5px;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* ★ bubble */
+.address-bar-star-wrap {
+  position: relative;
+  display: flex;
+}
+
+.bm-bubble {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -8px;
+  z-index: 1100;
+  width: 320px;
+  padding: 14px;
+  border-radius: 16px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  text-align: left;
+  cursor: default;
+  animation: bm-pop-in 0.18s var(--ease);
+}
+
+.bm-bubble-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.bm-bubble-head svg {
+  color: var(--accent);
+}
+
+.bm-bubble-name {
+  height: 36px;
+}
+
+.bm-bubble-label {
+  margin: 14px 2px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.bm-bubble-folders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.bm-folder-chip {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background-color: transparent;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.bm-folder-chip:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+
+.bm-folder-chip.is-on {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--paper);
+}
+
+.bm-folder-add {
+  border-style: dashed;
+}
+
+.bm-folder-new {
+  width: 130px;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  outline: none;
+  background-color: var(--sheet);
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.bm-bubble-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}

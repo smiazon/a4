@@ -1,0 +1,244 @@
+/* Two columns: a section list on the left, grouped settings on the right */
+.settings-layout {
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr);
+  gap: 44px;
+  width: min(940px, 100%);
+  margin: 0 auto;
+  padding: 52px 28px 120px;
+}
+
+.settings-nav {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-title {
+  margin: 0 0 18px 10px;
+}
+
+.settings-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 9px;
+  background-color: transparent;
+  color: var(--ink-2);
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.settings-nav-item:hover {
+  background-color: var(--hover);
+  color: var(--ink);
+}
+
+.settings-nav-item.is-current {
+  background-color: var(--sheet);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm), 0 0 0 1px var(--hairline);
+}
+
+.settings-nav-item svg {
+  flex-shrink: 0;
+  color: var(--ink-3);
+}
+
+.settings-nav-item.is-current svg {
+  color: var(--accent);
+}
+
+.settings-content {
+  min-width: 0;
+  padding-top: 6px;
+}
+
+.settings-section {
+  scroll-margin-top: 28px;
+  margin-bottom: 30px;
+}
+
+.settings-section .group-title {
+  margin-top: 0;
+}
+
+.settings-sub {
+  white-space: normal;
+}
+
+.settings-row-stack {
+  flex-wrap: wrap;
+}
+
+.settings-homepage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settings-homepage .field {
+  width: 220px;
+}
+
+.settings-select {
+  height: 30px;
+  max-width: 190px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--hairline-strong);
+  background-color: var(--sheet);
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+/* Assistant providers */
+.settings-provider {
+  flex-wrap: wrap;
+}
+
+.settings-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  margin: 0 2px 0 4px;
+  border-radius: 50%;
+  background-color: var(--hairline-strong);
+}
+
+.settings-dot.is-on {
+  background-color: #34A853;
+}
+
+.settings-badge {
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background-color: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  vertical-align: 2px;
+}
+
+.settings-provider-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.settings-shortcuts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 6px 0;
+}
+
+.settings-shortcut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px;
+  font-size: 14.5px;
+}
+
+.settings-shortcut .kbd {
+  font-size: 13px;
+}
+
+.settings-about {
+  gap: 14px;
+}
+
+.settings-about-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 760px) {
+  .settings-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .settings-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .settings-title {
+    width: 100%;
+  }
+}
+
+.settings-section .group-title.settings-subgroup {
+  margin-top: 26px;
+}
+
+.settings-proxy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.settings-proxy .field {
+  height: 32px;
+}
+
+.settings-proxy-host {
+  width: 170px;
+}
+
+.settings-proxy-port {
+  width: 84px;
+}
+
+.settings-sites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.settings-site {
+  cursor: default;
+  padding-right: 4px;
+}
+
+.settings-site button {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.settings-site button:hover {
+  background-color: var(--press);
+  color: var(--ink);
+}

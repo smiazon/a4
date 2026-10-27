@@ -1,219 +1,187 @@
 .browser-window {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
-  background: var(--paper-beige);
+  background: var(--paper);
   overflow: hidden;
-  min-height: 0;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  flex: 1;
+  transition: background-color 0.35s var(--ease);
 }
 
-/* Content area (WebView or Favorites): fills remaining space = window minus tabs (36px) minus header (44px) */
-.browser-window .webview-container,
-.browser-window .favorites-container {
-  flex: 1 1 0;
-  min-height: 0;
-  min-width: 0;
-  overflow: hidden;
-  width: 100%;
+/* Tabs + toolbar */
+.browser-chrome {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  transition: transform 0.38s var(--ease), opacity 0.3s var(--ease);
 }
 
 .browser-header {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  padding-left: 12px; /* Minimal space, address bar starts almost immediately */
-  background: var(--paper-cream);
-  border-bottom: 1px solid var(--border-light);
-  z-index: 10;
-  height: 44px;
-  box-sizing: border-box;
-  -webkit-app-region: drag; /* Make browser header draggable */
-}
-
-.browser-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23g)' fill='%23999' fill-opacity='0.12'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 100px 100px;
-  opacity: 0.045;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.browser-header > *,
-.browser-header-actions {
-  position: relative;
-  z-index: 1;
+  gap: 6px;
+  height: 48px;
+  padding: 0 10px;
+  background: var(--paper);
+  -webkit-app-region: drag;
+  transition: background-color 0.35s var(--ease);
 }
 
 .browser-header-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin-left: auto;
+  gap: 2px;
+  -webkit-app-region: no-drag;
 }
 
-.browser-window.fullscreen .browser-header {
-  padding-left: 12px;
-}
-
-/* On non-macOS, remove the extra padding */
-@supports not (-webkit-appearance: none) {
-  .browser-header {
-    padding-left: 12px;
-  }
-}
-
-/* Overlay and panels */
-.browser-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+/* The A4 orb doubles as the Home button */
+.browser-home {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  margin-right: 2px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease);
+  -webkit-app-region: no-drag;
 }
 
-.browser-panel,
-.browser-modal {
-  background: white;
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  max-width: 480px;
-  width: 100%;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Crimson Text', serif;
+.browser-home:hover {
+  transform: scale(1.08);
 }
 
-.browser-history-panel {
-  max-width: 520px;
-  max-height: 70vh;
+.browser-home:active {
+  transform: scale(0.94);
 }
 
-.browser-panel-header {
+.incognito-badge {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.browser-panel-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink-black);
-  margin: 0;
-}
-
-.browser-panel-close {
-  background: none;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  color: var(--ink-gray);
-  font-size: 18px;
-  line-height: 1;
-  border-radius: 4px;
-}
-
-.browser-panel-close:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--ink-black);
-}
-
-.browser-panel-body {
-  padding: 16px 20px;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
-}
-
-.browser-panel-empty {
-  color: var(--ink-gray);
-  font-size: 14px;
-  margin: 0;
-}
-
-.browser-history-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.browser-history-list li {
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.browser-history-list li:last-child {
-  border-bottom: none;
-}
-
-.browser-history-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  padding: 12px 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  font-family: inherit;
-  transition: background 0.15s ease;
-}
-
-.browser-history-item:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.browser-history-title {
-  font-size: 14px;
-  color: var(--ink-black);
-  margin-bottom: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
-}
-
-.browser-history-url {
+  height: 24px;
+  padding: 0 10px;
+  margin-right: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
   font-size: 12px;
-  color: var(--ink-gray);
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+}
+
+/* Page content sits on the paper like a sheet */
+.browser-content-inner {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  margin: 0 8px 8px;
+  border-radius: var(--radius);
   overflow: hidden;
-  text-overflow: ellipsis;
+  background: var(--sheet);
+  box-shadow: 0 0 0 1px var(--hairline), var(--shadow-md);
+  transition: margin 0.38s var(--ease), border-radius 0.38s var(--ease);
+}
+
+/* Per-tab webviews stay mounted so background tabs keep playing.
+   Inactive tabs are moved off-screen (not just covered) so Chromium doesn't
+   treat them as occluded and pause media (e.g. YouTube audio). */
+.browser-tab-views {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.browser-tab-views .webview-tab {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+}
+
+.browser-tab-views .webview-tab.active {
+  z-index: 2;
+  transform: translateX(0);
+}
+
+/* Home and internal pages sit on top of the webviews */
+.browser-special-page-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: var(--paper);
+}
+
+/* ---- Focus mode ---- */
+.browser-window.focus-mode .browser-chrome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.browser-window.focus-mode.chrome-revealed .browser-chrome {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: var(--shadow-lg);
+}
+
+.browser-window.focus-mode .browser-content-inner {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* A thin strip along the top edge that brings the chrome back */
+.chrome-hover-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  z-index: 19;
+}
+
+.focus-hint {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 30;
+  transform: translateX(-50%);
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
   white-space: nowrap;
-  max-width: 100%;
+  pointer-events: none;
+  animation: focus-hint 2.8s var(--ease) both;
 }
 
-.browser-help-app-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--ink-black);
-  margin: 0 0 4px 0;
+@keyframes focus-hint {
+  0% { opacity: 0; transform: translate(-50%, -8px); }
+  12%, 80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -4px); }
 }
 
-.browser-help-version {
-  font-size: 13px;
-  color: var(--ink-gray);
-  margin: 0 0 12px 0;
+/* The orb opens the AI assistant */
+.browser-home .logo-circle {
+  transition: box-shadow 0.2s var(--ease);
 }
 
+.browser-home.is-open .logo-circle {
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--accent);
+}
+
+.browser-home.is-thinking .logo-circle {
+  animation: orb-think 1.4s var(--ease) infinite;
+}
+
+@keyframes orb-think {
+  50% { transform: scale(0.82); filter: saturate(1.6) brightness(1.1); }
+}

@@ -1,0 +1,303 @@
+/* Shared UI primitives: glass, rainbow sweep, buttons, switch, segmented, fields */
+
+/* ---- Liquid glass surface (menus, floating bars) ---- */
+.glass {
+  background-color: var(--glass);
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  backdrop-filter: blur(28px) saturate(1.6);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- Rainbow sweep (Google "Ask anything" style) ----
+   .rainbow       a crisp sweeping ring; lights up on hover/focus or with .is-on
+   .rainbow-glow  a soft halo; put it on a background-less wrapper around the
+                  surface, so the glow sits behind it instead of tinting it */
+.rainbow,
+.rainbow-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.rainbow::before,
+.rainbow-glow::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  background: conic-gradient(from var(--sweep), var(--rainbow-stops));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+  animation: sweep 3.2s linear infinite;
+}
+
+.rainbow::before {
+  inset: -1.5px;
+  padding: 1.5px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 1;
+}
+
+.rainbow:hover::before,
+.rainbow:focus-within::before,
+.rainbow.is-on::before {
+  opacity: 1;
+}
+
+.rainbow.rainbow-subtle:hover:not(:focus-within)::before {
+  opacity: 0.5;
+}
+
+.rainbow-glow::after {
+  inset: 3px;
+  filter: blur(18px);
+  z-index: -1;
+}
+
+.rainbow-glow:focus-within::after,
+.rainbow-glow.is-on::after {
+  opacity: 0.45;
+}
+
+/* ---- Icon button (toolbar) ---- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: background-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.12s var(--ease);
+  -webkit-app-region: no-drag;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background-color: var(--hover);
+  color: var(--ink);
+}
+
+.icon-btn:active:not(:disabled) {
+  background-color: var(--press);
+  transform: scale(0.94);
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.icon-btn.is-active {
+  color: var(--accent);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--hairline-strong);
+  background-color: var(--sheet);
+  color: var(--ink);
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease), opacity 0.18s;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--ink-3);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.btn-primary {
+  background-color: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover:not(:disabled) {
+  border-color: var(--ink);
+  opacity: 0.9;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--ink-2);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--hover);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.btn-danger {
+  color: var(--danger);
+}
+
+.btn-danger.is-armed {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* ---- Text field (capsule) ---- */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline-strong);
+  color: var(--ink-3);
+  transition: border-color 0.18s var(--ease);
+}
+
+.field:focus-within {
+  border-color: transparent;
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--ink);
+  font-size: 14.5px;
+}
+
+.field input::placeholder {
+  color: var(--ink-3);
+}
+
+/* ---- Switch (iOS) ---- */
+.switch {
+  position: relative;
+  width: 46px;
+  height: 28px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--press);
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease);
+  -webkit-app-region: no-drag;
+}
+
+.switch[aria-checked='true'] {
+  background-color: var(--ink);
+}
+
+.switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  transition: transform 0.32s var(--ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #B7832C;
+}
+
+.switch[aria-checked='true'] .switch-knob {
+  transform: translateX(18px);
+  color: #4A5A86;
+}
+
+/* Theme switch: night sky with a few stars when dark */
+.theme-switch[aria-checked='true'] {
+  background: linear-gradient(135deg, #1E2747, #39456F);
+}
+
+.theme-switch-stars {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  background:
+    radial-gradient(1px 1px at 9px 9px, #fff 99%, transparent),
+    radial-gradient(1px 1px at 15px 19px, rgba(255, 255, 255, 0.8) 99%, transparent),
+    radial-gradient(1.2px 1.2px at 6px 17px, rgba(255, 255, 255, 0.7) 99%, transparent);
+}
+
+.theme-switch[aria-checked='true'] .theme-switch-stars {
+  opacity: 1;
+}
+
+/* ---- Segmented control ---- */
+.segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  background-color: var(--press);
+}
+
+.segmented button {
+  height: 28px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.segmented button:hover {
+  color: var(--ink);
+}
+
+.segmented button[aria-pressed='true'] {
+  background-color: var(--sheet);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 0 0.5px var(--hairline-strong);
+}
+
+/* ---- Keyboard shortcut hint ---- */
+.kbd {
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---- Keyboard focus: a soft accent ring, only when navigating by keyboard ---- */
+:is(button, [role='button'], a, select):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

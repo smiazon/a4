@@ -4,14 +4,71 @@
   box-sizing: border-box;
 }
 
-:root {
-  --paper-beige: #faf8f5;
-  --paper-cream: #f5f1eb;
-  --ink-black: #1a1a1a;
-  --ink-gray: #4a4a4a;
-  --accent-blue: #0071e3;
-  --border-light: rgba(0, 0, 0, 0.08);
-  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+/* Paper (light) — warm Kindle page */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --paper: #F3EEE4;          /* toolbar & page backgrounds */
+  --paper-deep: #E8E1D3;     /* tab strip */
+  --sheet: #FBF8F1;          /* cards, inputs, menus */
+  --ink: #1F1C18;
+  --ink-2: #5E584F;
+  --ink-3: #978F82;
+  --hairline: rgba(74, 56, 28, 0.13);
+  --hairline-strong: rgba(74, 56, 28, 0.22);
+  --hover: rgba(74, 56, 28, 0.065);
+  --press: rgba(74, 56, 28, 0.11);
+  --accent: #2F67CF;
+  --danger: #C2412D;
+  --glass: rgba(250, 246, 238, 0.74);
+  --shadow-sm: 0 1px 2px rgba(60, 40, 10, 0.08);
+  --shadow-md: 0 6px 18px rgba(60, 40, 10, 0.1), 0 1px 3px rgba(60, 40, 10, 0.08);
+  --shadow-lg: 0 22px 60px rgba(40, 25, 5, 0.2), 0 2px 8px rgba(40, 25, 5, 0.1);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
+
+  /* Google-style AI colours for the rainbow sweep */
+  --rainbow-stops: #4285F4, #9B72CB, #D96570, #F2A60C, #34A853, #4285F4;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --font-serif: 'Crimson Text', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cormorant Garamond', 'Crimson Text', Georgia, serif;
+  --font-reading: 'EB Garamond', 'Crimson Text', Georgia, serif;
+
+  /* Older names still used in a few places */
+  --paper-beige: var(--paper);
+  --paper-cream: var(--paper-deep);
+  --ink-black: var(--ink);
+  --ink-gray: var(--ink-2);
+  --accent-blue: var(--accent);
+  --border-light: var(--hairline);
+  --input-bg: var(--sheet);
+  --input-border: var(--hairline-strong);
+  --shadow-subtle: var(--shadow-sm);
+}
+
+/* Night (dark) — Kindle dark mode, warm ink on near-black */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171513;
+  --paper-deep: #0F0E0D;
+  --sheet: #211F1B;
+  --ink: #ECE5D8;
+  --ink-2: #ABA396;
+  --ink-3: #726B61;
+  --hairline: rgba(255, 238, 210, 0.09);
+  --hairline-strong: rgba(255, 238, 210, 0.16);
+  --hover: rgba(255, 238, 210, 0.07);
+  --press: rgba(255, 238, 210, 0.11);
+  --accent: #86A9F2;
+  --danger: #EE7B66;
+  --glass: rgba(33, 31, 27, 0.72);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 22px 60px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 html {
@@ -28,11 +85,12 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: 'Crimson Text', 'Cormorant Garamond', serif;
-  background: var(--paper-beige);
-  color: var(--ink-black);
+  font-family: var(--font-serif);
+  background: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 #root {
@@ -47,23 +105,54 @@ body {
   overflow: hidden;
 }
 
-/* Paper texture effect - more subtle */
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+::selection {
+  background: rgba(47, 103, 207, 0.22);
+}
+
+/* Paper texture */
 body::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.008) 3px,
-      rgba(0, 0, 0, 0.008) 6px
-    );
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 1;
-  opacity: 0.6;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] body::before {
+  opacity: 0.05;
+  mix-blend-mode: screen;
+}
+
+/* Animatable angle for the rainbow sweep */
+@property --sweep {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes sweep {
+  to { --sweep: 360deg; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

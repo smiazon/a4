@@ -1,0 +1,307 @@
+.mail {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-app-region: no-drag;
+}
+
+/* Home page: top-right, over the art or paper */
+.mail-home {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 5;
+}
+
+/* A living disc like the AI orb: the provider's color drifting through A4's rainbow */
+.mail-avatar {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.14);
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.mail-avatar-fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--mail-color);
+}
+
+.mail-avatar-fill::before {
+  content: '';
+  position: absolute;
+  inset: -35%;
+  background: conic-gradient(var(--mail-color), #9B72CB, #4285F4, #F2A60C, #D96570, var(--mail-color));
+  filter: blur(5px);
+  animation: spin 9s linear infinite;
+}
+
+/* A soft light in the upper left, like the orb's */
+.mail-avatar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.42), transparent 60%);
+}
+
+.mail-avatar-initial {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+.mail-avatar-badge {
+  position: absolute;
+  top: -3px;
+  right: -5px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3.5px;
+  border-radius: 999px;
+  background-color: var(--danger);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 14px;
+  text-align: center;
+  box-shadow: 0 0 0 1.5px var(--paper);
+}
+
+.mail-avatar-btn {
+  display: flex;
+  padding: 2px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease);
+}
+
+.mail-avatar-btn:hover {
+  transform: scale(1.06);
+}
+
+.mail-avatar-btn:active {
+  transform: scale(0.94);
+}
+
+.mail-signin,
+.mail-caret {
+  border: 1px solid var(--hairline);
+  background-color: color-mix(in srgb, var(--sheet) 82%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* Accounts: a small chevron that shows beside the avatar on hover */
+.mail-caret {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  opacity: 0;
+  transform: translate(4px, -50%);
+  transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+}
+
+.mail:hover .mail-caret,
+.mail-caret:focus-visible,
+.mail-caret[aria-expanded="true"] {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.mail-signin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px 0 10px;
+  border-radius: 999px;
+  font-size: 13.5px;
+}
+
+.mail-signin:hover {
+  border-color: var(--hairline-strong);
+}
+
+/* Panels */
+.mail-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000;
+  width: 300px;
+  padding: 8px;
+  border-radius: 16px;
+  background-color: var(--sheet);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-lg);
+  color: var(--ink);
+  text-align: left;
+  animation: mail-in 0.18s var(--ease);
+}
+
+@keyframes mail-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+}
+
+.mail-chooser {
+  padding: 8px 6px 4px;
+}
+
+.mail-chooser-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.mail-chooser-text {
+  margin: 4px 0 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.mail-providers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.mail-provider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid var(--hairline);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease);
+}
+
+.mail-provider:hover {
+  border-color: var(--ink-3);
+}
+
+.mail-provider-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.mail-provider-other {
+  color: var(--ink-2);
+}
+
+.mail-custom {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 6px;
+}
+
+.mail-custom .field {
+  flex: 1;
+}
+
+.mail-menu-row {
+  display: flex;
+  align-items: center;
+}
+
+.mail-menu-account {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mail-menu-account:hover {
+  background-color: var(--hover);
+}
+
+.mail-menu-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mail-menu-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14.5px;
+}
+
+.mail-menu-provider {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+.mail-menu-remove {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-3);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.mail-menu-remove:hover {
+  background-color: var(--press);
+  color: var(--ink);
+}
+
+.mail-menu-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px 14px 6px;
+  border: none;
+  border-top: 1px solid var(--hairline);
+  background: none;
+  color: var(--ink-2);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mail-menu-add:hover {
+  color: var(--ink);
+}
