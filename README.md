@@ -76,7 +76,7 @@ GitHub Actions builds every platform and publishes a release when you push a ver
 git tag v1.0.1 && git push origin v1.0.1
 ```
 
-The app icon is drawn by `scripts/make-icons.js` (`npx electron scripts/make-icons.js` rewrites everything in `build/`).
+The app icon and the Mac installer window are drawn by `scripts/make-art.js` (`npx electron scripts/make-art.js` rewrites everything in `build/`).
 
 ## Keyboard Shortcuts
 

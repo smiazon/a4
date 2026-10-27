@@ -1,6 +1,6 @@
 {
   "name": "smiazon-browser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A4: a calm, paper-like web browser with an art home page, ad blocking and a built-in AI assistant",
   "author": "smiazon",
   "homepage": "https://github.com/smiazon/a4",
@@ -65,7 +65,25 @@
       "artifactName": "A4-${version}-mac-${arch}.${ext}"
     },
     "dmg": {
-      "title": "A4"
+      "title": "A4",
+      "iconSize": 88,
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "contents": [
+        {
+          "x": 150,
+          "y": 196,
+          "type": "file"
+        },
+        {
+          "x": 390,
+          "y": 196,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     },
     "win": {
       "icon": "build/icon.png",
